@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class ScrapResource extends Resource
 {
@@ -23,7 +24,14 @@ class ScrapResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('source')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('category')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('name')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('url')
+                    ->maxLength(255),
             ]);
     }
 
@@ -31,7 +39,22 @@ class ScrapResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('source')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('category')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('url')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -42,7 +65,8 @@ class ScrapResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //Tables\Actions\DeleteBulkAction::make(),
+                    ExportBulkAction::make()
                 ]),
             ]);
     }
