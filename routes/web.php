@@ -21,4 +21,6 @@ Route::get('/', function () {
     return Route::get('/scraper/livewire/livewire.js', $handle);
 });
 
-Route::post('livewire/update', [\Livewire\Mechanisms\HandleRequests\HandleRequests::class, 'handleUpdate'])->name('livewire.update');
+\Livewire\Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('/scraper/livewire/update', $handle);
+});
