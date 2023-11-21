@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+\Livewire\Livewire::setScriptRoute(function ($handle) {
+    return Route::get('/scraper/livewire/livewire.js', $handle);
+});
