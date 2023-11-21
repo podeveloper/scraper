@@ -125,6 +125,7 @@ return [
     | via AJAX, creating an SPA-like effect. Configure this behavior here.
     |
     */
+    'asset_url'  => '/scraper/livewire/livewire.js',
 
     'navigate' => [
         'show_progress_bar' => true,
